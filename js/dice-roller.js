@@ -1,7 +1,6 @@
 const isFairDie = faces => {
   const validFaces = [2, 4, 6, 8, 10, 12, 20];
-  if (validFaces.includes(faces)) return true; 
-  return false;
+  return validFaces.includes(faces);
 }
 
 const tokyoDie = [
