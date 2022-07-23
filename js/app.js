@@ -78,6 +78,7 @@ const init = () => {
 
     rollCount++;
 
+    // TODO: Figure out how the interface should work when roll limit is reached. Currently there is an action required to resolve the dice. Auto-resolve makes it more difficult to see what the last dice roll was.
     if (rollCount <= 3) {
       let listItems = '';
       rollResults.forEach(function(item){
