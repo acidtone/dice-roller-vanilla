@@ -1,5 +1,6 @@
 const isFairDie = faces => {
   const validFaces = [2, 4, 6, 8, 10, 12, 20];
+  // TODO: refactor with guard clauses
   if (validFaces.includes(faces)) {
     return true; 
   } else {
@@ -17,6 +18,7 @@ const tokyoDie = [
 ]
 
 const roll = die => {
+  // TODO: refactor with guard clauses
   if (Number.isInteger(die) && isFairDie(die)) {
     return Math.ceil(Math.random() * die);
   } else if (Array.isArray(die) && isFairDie(die.length)) {
