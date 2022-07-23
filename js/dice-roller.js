@@ -1,11 +1,7 @@
 const isFairDie = faces => {
   const validFaces = [2, 4, 6, 8, 10, 12, 20];
-  // TODO: refactor with guard clauses
-  if (validFaces.includes(faces)) {
-    return true; 
-  } else {
-    return false;
-  }
+  if (validFaces.includes(faces)) return true; 
+  return false;
 }
 
 const tokyoDie = [
@@ -18,14 +14,9 @@ const tokyoDie = [
 ]
 
 const roll = die => {
-  // TODO: refactor with guard clauses
-  if (Number.isInteger(die) && isFairDie(die)) {
-    return Math.ceil(Math.random() * die);
-  } else if (Array.isArray(die) && isFairDie(die.length)) {
-    return die[Math.floor(Math.random() * die.length)];
-  } else {
-    return 'Not a valid die';
-  }
+  if (Number.isInteger(die) && isFairDie(die)) return Math.ceil(Math.random() * die);
+  if (Array.isArray(die) && isFairDie(die.length)) return die[Math.floor(Math.random() * die.length)];
+  return 'Not a valid die';
 }
 
 console.log(roll(6));
