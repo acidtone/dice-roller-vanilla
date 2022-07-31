@@ -1,12 +1,30 @@
 import {roll, reduceRollResults} from './utilities.js'
 
 const die = [
-  'Heart',
-  'Attack',
-  'Money',
-  'One',
-  'Two',
-  'Three'
+  {
+    label: 'Heart',
+    css: 'fa-solid fa-heart'
+  },
+  {
+    label: 'Attack',
+    css: 'fa-solid fa-paw-claws'
+  },
+  {
+    label: 'Money',
+    css: 'fa-solid fa-bolt'
+  },
+  {
+    label: 'One',
+    css: 'fa-solid fa-dice-one'
+  },
+  {
+    label: 'Two',
+    css: 'fa-solid fa-dice-two'
+  },
+  {
+    label: 'Three',
+    css: 'fa-solid fa-dice-three'
+  }
 ];
 
 const init = () => {
@@ -82,7 +100,7 @@ const init = () => {
     if (rollCount <= 3) {
       let listItems = '';
       rollResults.forEach(function(item){
-        listItems += `<li><button class="die">${item}</button></li>`;
+        listItems += `<li><button class="die" aria-label="${item.label}"><i class="${item.css}"></i></button></li>`;
       });
       rollPile.innerHTML = listItems;
 
