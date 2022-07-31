@@ -2,34 +2,29 @@ import {roll, reduceRollResults} from './utilities.js'
 
 const die = [
   {
-    label: 'Heart',
-    css: 'fa-solid fa-heart'
+    label: 'heal'
   },
   {
-    label: 'Attack',
-    css: 'fa-solid fa-paw-claws'
+    label: 'attack'
   },
   {
-    label: 'Money',
-    css: 'fa-solid fa-bolt'
+    label: 'money'
   },
   {
-    label: 'One',
-    css: 'fa-solid fa-dice-one'
+    label: 'one'
   },
   {
-    label: 'Two',
-    css: 'fa-solid fa-dice-two'
+    label: 'two'
   },
   {
-    label: 'Three',
-    css: 'fa-solid fa-dice-three'
+    label: 'three'
   }
 ];
 
 const init = () => {
 
   const moveDie = event => {
+    console.log(event);
     if (event.target.parentNode.parentNode.parentNode.classList.contains('roll-pile')) {
       keepPile.appendChild(event.target.parentNode);
     } else if (event.target.parentNode.parentNode.parentNode.classList.contains('keep-pile')) {
@@ -100,7 +95,7 @@ const init = () => {
     if (rollCount <= 3) {
       let listItems = '';
       rollResults.forEach(function(item){
-        listItems += `<li><button class="die" aria-label="${item.label}"><i class="${item.css}"></i></button></li>`;
+        listItems += `<li><button class="die ${item.label}" aria-label="${item.label}"></button></li>`;
       });
       rollPile.innerHTML = listItems;
 

@@ -5,7 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dice Roller!</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/solid.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
   <script type="module" src="js/app.js"></script>
   <style>
     ul {
@@ -22,6 +23,43 @@
       height: 5rem;
       border-radius: 1rem;
     }
+
+    button.die.one::before {
+      font-family: "Font Awesome 5 Free"; 
+      font-weight: 900; 
+      content: "\f525";
+      font-size: 3rem;
+    } 
+    button.die.two::before {
+      font-family: "Font Awesome 5 Free"; 
+      font-weight: 900; 
+      content: "\f528";
+      font-size: 3rem;
+    } 
+    button.die.three::before {
+      font-family: "Font Awesome 5 Free"; 
+      font-weight: 900; 
+      content: "\f527";
+      font-size: 3rem;
+    } 
+    button.die.attack::before {
+      font-family: "Font Awesome 5 Free"; 
+      font-weight: 900; 
+      content: "\f1b0";
+      font-size: 3rem;
+    } 
+    button.die.heal::before {
+      font-family: "Font Awesome 5 Free"; 
+      font-weight: 900; 
+      content: "\f004";
+      font-size: 3rem;
+    } 
+    button.die.money::before {
+      font-family: "Font Awesome 5 Free"; 
+      font-weight: 900; 
+      content: "\f0e7";
+      font-size: 3rem;
+    } 
   </style>
 </head>
 <body>
