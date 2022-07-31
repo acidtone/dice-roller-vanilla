@@ -11,7 +11,7 @@ export const roll = die => {
 
 // Takes array of dice and maps out values
 export const reduceRollResults = (resultsArray) => {
-
+  console.log(resultsArray);
   // First, sort all values
   const rollResults = resultsArray.reduce((acc, curr) => {
       if (typeof acc[curr] == 'undefined') {

@@ -49,7 +49,7 @@ const init = () => {
     const keptDiceVals = [];
 
     for(let dieVal of keptDice){
-      keptDiceVals.push(dieVal.innerHTML);
+      keptDiceVals.push(dieVal.getAttribute('aria-label'));
     }
 
     // Create a map of the rolled values
