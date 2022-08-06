@@ -1,6 +1,6 @@
 import {roll, reduceRollResults} from './utilities.js'
 
-const die = [
+const dieFaces = [
   {
     label: 'heal'
   },
@@ -21,20 +21,74 @@ const die = [
   }
 ];
 
+const dice = [
+  {
+    id: 0,
+    value: '',
+    keep: false,
+  },
+  {
+    id: 1,
+    value: '',
+    keep: false,
+  },
+  {
+    id: 2,
+    value: '',
+    keep: false,
+  },
+  {
+    id: 3,
+    value: '',
+    keep: false,
+  },
+  {
+    id: 4,
+    value: '',
+    keep: false,
+  },
+  {
+    id: 5,
+    value: '',
+    keep: false,
+  }
+];
+
+
 const init = () => {
 
-  const moveDie = event => {
-    console.log(event);
-    if (event.target.parentNode.parentNode.parentNode.classList.contains('roll-pile')) {
-      keepPile.appendChild(event.target.parentNode);
-    } else if (event.target.parentNode.parentNode.parentNode.classList.contains('keep-pile')) {
-      rollPile.appendChild(event.target.parentNode);
-    }
+  const renderPiles = () => {
+    let keepListItems = '';
+    let rollListItems = '';
+
+    dice.forEach((item) => {
+      if (item.keep) {
+        keepListItems += `<li><button data-id="${item.id}" class="die ${item.value}" aria-label="${item.value}"></button></li>`;
+      } else {
+        rollListItems += `<li><button data-id="${item.id}" class="die ${item.value}" aria-label="${item.value}"></button></li>`;      
+      }
+    })
+    rollPile.innerHTML = rollListItems;
+    keepPile.innerHTML = keepListItems;
+    rollPile.querySelectorAll('button').forEach(function(item){
+      item.addEventListener('click', toggleKeep);
+    });
+
+    keepPile.querySelectorAll('button').forEach(function(item){
+      item.addEventListener('click', toggleKeep);
+    });
   }
 
-  // TODO: Function for rebuilding piles 
-  // - keep pile where keep === true
-  // - roll pile where keep === false
+  const toggleKeep = event => {
+    console.log(event.target.getAttribute('data-id'));
+    const dieId = parseInt(event.target.getAttribute('data-id'));
+    dice.find((item) => {
+      if (item.id === dieId) {
+        item.keep = !item.keep;
+      }
+    })
+    renderPiles();
+  }
 
   const resolveDice = () => {
     // Disable rolling
@@ -63,7 +117,7 @@ const init = () => {
     // Add map values
     let keptValuesDisplay = '';
     for(let faceValue in rollResults){
-        keptValuesDisplay += `<li><button>${faceValue} ${rollResults[faceValue]}</button></li>` 
+        keptValuesDisplay += `<li><button data-keep="">${faceValue} ${rollResults[faceValue]}</button></li>` 
     }
     rollPile.innerHTML = keptValuesDisplay; 
 
@@ -84,32 +138,17 @@ const init = () => {
   rollBtn.addEventListener('click', () => {
     resolveBtn.disabled = false; // enable resolve after first roll
 
-    const numDie = 6 - keepPile.querySelectorAll('li').length;
-
-    let rollResults = [];
-    for (let i = 0; i < numDie; i++) {
-      rollResults[rollResults.length] = roll(die);
-    }
-
-    console.log(rollResults);
+    dice.forEach((die) => {
+      if (!die.keep) {
+        die.value = roll(dieFaces).label;
+      }
+    })
 
     rollCount++;
 
     // TODO: Figure out how the interface should work when roll limit is reached. Currently there is an action required to resolve the dice. Auto-resolve makes it more difficult to see what the last dice roll was.
     if (rollCount <= 3) {
-      let listItems = '';
-      rollResults.forEach(function(item){
-        // TODO: Add data-attr -> data-keep
-        listItems += `<li><button class="die ${item.label}" aria-label="${item.label}"></button></li>`;
-      });
-      rollPile.innerHTML = listItems;
-
-      rollPile.querySelectorAll('button').forEach(function(item){
-        // TODO: toggle datta-attr keep -> true
-        // TODO: rebuild piles
-        item.addEventListener('click', moveDie);
-      });
-
+      renderPiles();
     } else {
       resolveDice();
     }
