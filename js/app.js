@@ -32,6 +32,10 @@ const init = () => {
     }
   }
 
+  // TODO: Function for rebuilding piles 
+  // - keep pile where keep === true
+  // - roll pile where keep === false
+
   const resolveDice = () => {
     // Disable rolling
     rollBtn.disabled = true;
@@ -95,11 +99,14 @@ const init = () => {
     if (rollCount <= 3) {
       let listItems = '';
       rollResults.forEach(function(item){
+        // TODO: Add data-attr -> data-keep
         listItems += `<li><button class="die ${item.label}" aria-label="${item.label}"></button></li>`;
       });
       rollPile.innerHTML = listItems;
 
       rollPile.querySelectorAll('button').forEach(function(item){
+        // TODO: toggle datta-attr keep -> true
+        // TODO: rebuild piles
         item.addEventListener('click', moveDie);
       });
 
