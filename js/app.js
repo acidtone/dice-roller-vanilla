@@ -1,6 +1,5 @@
-import {reduceRollResults} from './utilities.js';
-import {roll} from 'https://unpkg.com/dice-rollr@1.0.0/index.js'; // My own package, btw.
-import {dieFaces, dice} from './game.js';
+import {roll} from 'https://unpkg.com/dice-rollr@1.0.0/index.js';
+import {dieFaces, dice, reduceRollResults} from './game.js';
 
 const init = () => {
 
@@ -79,7 +78,6 @@ const init = () => {
   rollBtn.addEventListener('click', () => {
     resolveBtn.disabled = false; // enable resolve after first roll
 
-    // TODO: Move to separate function to clean up if/else with guard clauses
     if (rollCount < 3) {
       dice.forEach((die) => {
         if (!die.keep) {
@@ -94,6 +92,7 @@ const init = () => {
       if (rollCount === 3) {
         resolveDice();
       }
+
     } else {
       resolveDice();
     }
