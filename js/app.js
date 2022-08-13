@@ -93,33 +93,23 @@ const init = () => {
   }
 
   const resolveDice = () => {
+    // TODO: Remove dice click handlers
+
     // Disable rolling
     rollBtn.disabled = true;
 
-    // // If any remaining dice, keep them
-    // const remainingDice =  rollPile.querySelectorAll('li');
-    // if (remainingDice.length > 0) {
-    //   remainingDice.forEach(function(item) {
-    //     // TODO: Refactor to use dice array
-    //     keepPile.appendChild(item);
-    //   });
-    // }
-
-    // Get values from dice
-    // const keptDice = keepPile.querySelectorAll('button');
+    // TODO: Refactor reduceRollResults to use the dice array directly
     const keptDiceVals = [];
 
-    // for(let dieVal of keptDice){
-      // }
     dice.forEach(item => {
       keptDiceVals.push(item.value);
     })
 
-    // Create a map of the rolled values
+    // Reduce the results of the dice
     const rollResults = reduceRollResults(keptDiceVals);
     console.log(rollResults);
 
-    // Add map values
+    // Take reduced dice results and output to the page
     let keptValuesDisplay = '';
     for(let faceValue in rollResults){
         keptValuesDisplay += `<li><button data-keep="">${faceValue} ${rollResults[faceValue]}</button></li>` 
@@ -144,8 +134,7 @@ const init = () => {
   rollBtn.addEventListener('click', () => {
     resolveBtn.disabled = false; // enable resolve after first roll
 
-    
-    // TODO: Figure out how the interface should work when roll limit is reached. Currently there is an action required to resolve the dice. Auto-resolve makes it more difficult to see what the last dice roll was.
+    // TODO: Move to separate function to clean up if/else with guard clauses
     if (rollCount < 3) {
       dice.forEach((die) => {
         if (!die.keep) {
@@ -156,6 +145,7 @@ const init = () => {
       rollCount++;
 
       renderPiles();
+
       if (rollCount === 3) {
         resolveDice();
       }
