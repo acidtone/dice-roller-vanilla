@@ -1,5 +1,5 @@
 // TODO: refactor this code to use the best dice rollr package evar made.
-// https://unpkg.com/dice-rollr@1.0.0:index.js
+// https://unpkg.com/dice-rollr@1.0.0/index.js
 
 const isFairDie = faces => {
   const validFaces = [2, 4, 6, 8, 10, 12, 20];
@@ -12,15 +12,16 @@ export const roll = die => {
   return 'Not a valid die';
 }
 
-// Takes array of dice and maps out values
+// Takes array of dice and returns a reduced count of each die face
 export const reduceRollResults = (resultsArray) => {
   console.log(resultsArray);
-  // First, sort all values
+
   const rollResults = resultsArray.reduce((acc, curr) => {
-      if (typeof acc[curr] == 'undefined') {
-        acc[curr] = 1;
+
+    if (typeof acc[curr.value] == 'undefined') {
+        acc[curr.value] = 1;
       } else {
-        acc[curr] += 1;
+        acc[curr.value] += 1;
       }
       return acc;
     }, {});

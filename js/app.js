@@ -1,64 +1,9 @@
 import {roll, reduceRollResults} from './utilities.js'
-
-// TODO: Move die dieFaces and dice to separate file
-const dieFaces = [
-  {
-    label: 'heal'
-  },
-  {
-    label: 'attack'
-  },
-  {
-    label: 'money'
-  },
-  {
-    label: 'one'
-  },
-  {
-    label: 'two'
-  },
-  {
-    label: 'three'
-  }
-];
-
-const dice = [
-  {
-    id: 0,
-    value: '',
-    keep: false,
-  },
-  {
-    id: 1,
-    value: '',
-    keep: false,
-  },
-  {
-    id: 2,
-    value: '',
-    keep: false,
-  },
-  {
-    id: 3,
-    value: '',
-    keep: false,
-  },
-  {
-    id: 4,
-    value: '',
-    keep: false,
-  },
-  {
-    id: 5,
-    value: '',
-    keep: false,
-  }
-];
-
+import {dieFaces, dice} from './game.js'
 
 const init = () => {
 
-  // TODO: Move renderPiles to game.js file
+  // TODO: Move renderPiles to game.js file?
   const renderPiles = () => {
     let keepListItems = '';
     let rollListItems = '';
@@ -71,8 +16,8 @@ const init = () => {
         rollListItems += `<li><button data-id="${item.id}" class="die ${item.value}" aria-label="${item.value}"></button></li>`;      
       }
     })
-
-    // TODO: De-couple the rollPile and keepPile DOM objects -> move to toggleKeep
+    
+    // TODO: De-couple the rollPile and keepPile DOM objects -> move to toggleKeep?
     rollPile.innerHTML = rollListItems;
     keepPile.innerHTML = keepListItems;
     rollPile.querySelectorAll('button').forEach(function(item){
@@ -84,7 +29,7 @@ const init = () => {
     });
   }
 
-  // TODO: Move toggleKeep to game.js file
+  // TODO: Move toggleKeep to game.js file?
   const toggleKeep = event => {
     const dieId = parseInt(event.target.getAttribute('data-id'));
     const die = dice.find(item => item.id === dieId);
@@ -93,20 +38,19 @@ const init = () => {
   }
 
   const resolveDice = () => {
-    // TODO: Remove dice click handlers
+
+    // Remove click handlers from pile Dice
+    const pileDice = document.querySelectorAll('button.die');
+
+    pileDice.forEach((item) => {
+      item.removeEventListener('click', toggleKeep);
+    })
 
     // Disable rolling
     rollBtn.disabled = true;
 
-    // TODO: Refactor reduceRollResults to use the dice array directly
-    const keptDiceVals = [];
-
-    dice.forEach(item => {
-      keptDiceVals.push(item.value);
-    })
-
     // Reduce the results of the dice
-    const rollResults = reduceRollResults(keptDiceVals);
+    const rollResults = reduceRollResults(dice);
     console.log(rollResults);
 
     // Take reduced dice results and output to the page
