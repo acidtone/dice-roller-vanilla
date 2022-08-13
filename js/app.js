@@ -96,22 +96,24 @@ const init = () => {
     // Disable rolling
     rollBtn.disabled = true;
 
-    // If any remaining dice, keep them
-    const remainingDice =  rollPile.querySelectorAll('li');
-    if (remainingDice.length > 0) {
-      remainingDice.forEach(function(item) {
-        // TODO: Refactor to use dice array
-        keepPile.appendChild(item);
-      });
-    }
+    // // If any remaining dice, keep them
+    // const remainingDice =  rollPile.querySelectorAll('li');
+    // if (remainingDice.length > 0) {
+    //   remainingDice.forEach(function(item) {
+    //     // TODO: Refactor to use dice array
+    //     keepPile.appendChild(item);
+    //   });
+    // }
 
     // Get values from dice
-    const keptDice = keepPile.querySelectorAll('button');
+    // const keptDice = keepPile.querySelectorAll('button');
     const keptDiceVals = [];
 
-    for(let dieVal of keptDice){
-      keptDiceVals.push(dieVal.getAttribute('aria-label'));
-    }
+    // for(let dieVal of keptDice){
+      // }
+    dice.forEach(item => {
+      keptDiceVals.push(item.value);
+    })
 
     // Create a map of the rolled values
     const rollResults = reduceRollResults(keptDiceVals);
@@ -122,7 +124,7 @@ const init = () => {
     for(let faceValue in rollResults){
         keptValuesDisplay += `<li><button data-keep="">${faceValue} ${rollResults[faceValue]}</button></li>` 
     }
-    rollPile.innerHTML = keptValuesDisplay; 
+    resolvePile.innerHTML = keptValuesDisplay; 
 
     resolveBtn.disabled = true;
 
@@ -132,6 +134,7 @@ const init = () => {
   const resolveBtn = document.querySelector('.resolve-dice');
   const rollPile = document.querySelector('.roll-pile');
   const keepPile = document.querySelector('.keep-pile');
+  const resolvePile = document.querySelector('.resolve-pile ul');
 
   let rollCount = 0;
 
@@ -141,17 +144,21 @@ const init = () => {
   rollBtn.addEventListener('click', () => {
     resolveBtn.disabled = false; // enable resolve after first roll
 
-    dice.forEach((die) => {
-      if (!die.keep) {
-        die.value = roll(dieFaces).label;
-      }
-    })
-
-    rollCount++;
-
+    
     // TODO: Figure out how the interface should work when roll limit is reached. Currently there is an action required to resolve the dice. Auto-resolve makes it more difficult to see what the last dice roll was.
-    if (rollCount <= 3) {
+    if (rollCount < 3) {
+      dice.forEach((die) => {
+        if (!die.keep) {
+          die.value = roll(dieFaces).label;
+        }
+      })
+  
+      rollCount++;
+
       renderPiles();
+      if (rollCount === 3) {
+        resolveDice();
+      }
     } else {
       resolveDice();
     }
