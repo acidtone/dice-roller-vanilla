@@ -130,8 +130,8 @@ const init = () => {
 
   const rollBtn = document.querySelector('.roll-dice');
   const resolveBtn = document.querySelector('.resolve-dice');
-  const rollPile = document.querySelector('.roll-pile ul');
-  const keepPile = document.querySelector('.keep-pile ul');
+  const rollPile = document.querySelector('.roll-pile');
+  const keepPile = document.querySelector('.keep-pile');
 
   let rollCount = 0;
 
