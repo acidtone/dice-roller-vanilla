@@ -1,5 +1,6 @@
 import {roll, reduceRollResults} from './utilities.js'
 
+// TODO: Move die dieFaces and dice to separate file
 const dieFaces = [
   {
     label: 'heal'
@@ -57,10 +58,12 @@ const dice = [
 
 const init = () => {
 
+  // TODO: Move renderPiles to game.js file
   const renderPiles = () => {
     let keepListItems = '';
     let rollListItems = '';
 
+    // TODO: Remove repetition in the next 15 lines or so 
     dice.forEach((item) => {
       if (item.keep) {
         keepListItems += `<li><button data-id="${item.id}" class="die ${item.value}" aria-label="${item.value}"></button></li>`;
@@ -68,6 +71,8 @@ const init = () => {
         rollListItems += `<li><button data-id="${item.id}" class="die ${item.value}" aria-label="${item.value}"></button></li>`;      
       }
     })
+
+    // TODO: De-couple the rollPile and keepPile DOM objects -> move to toggleKeep
     rollPile.innerHTML = rollListItems;
     keepPile.innerHTML = keepListItems;
     rollPile.querySelectorAll('button').forEach(function(item){
@@ -79,14 +84,11 @@ const init = () => {
     });
   }
 
+  // TODO: Move toggleKeep to game.js file
   const toggleKeep = event => {
-    console.log(event.target.getAttribute('data-id'));
     const dieId = parseInt(event.target.getAttribute('data-id'));
-    dice.find((item) => {
-      if (item.id === dieId) {
-        item.keep = !item.keep;
-      }
-    })
+    const die = dice.find(item => item.id === dieId);
+    die.keep = !die.keep;  
     renderPiles();
   }
 
@@ -98,6 +100,7 @@ const init = () => {
     const remainingDice =  rollPile.querySelectorAll('li');
     if (remainingDice.length > 0) {
       remainingDice.forEach(function(item) {
+        // TODO: Refactor to use dice array
         keepPile.appendChild(item);
       });
     }
@@ -152,7 +155,6 @@ const init = () => {
     } else {
       resolveDice();
     }
-
 
   })
 

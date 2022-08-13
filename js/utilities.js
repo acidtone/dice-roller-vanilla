@@ -1,3 +1,6 @@
+// TODO: refactor this code to use the best dice rollr package evar made.
+// https://unpkg.com/dice-rollr@1.0.0:index.js
+
 const isFairDie = faces => {
   const validFaces = [2, 4, 6, 8, 10, 12, 20];
   return validFaces.includes(faces);
