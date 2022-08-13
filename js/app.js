@@ -1,5 +1,6 @@
-import {roll, reduceRollResults} from './utilities.js'
-import {dieFaces, dice} from './game.js'
+import {reduceRollResults} from './utilities.js';
+import {roll} from 'https://unpkg.com/dice-rollr@1.0.0/index.js'; // My own package, btw.
+import {dieFaces, dice} from './game.js';
 
 const init = () => {
 
